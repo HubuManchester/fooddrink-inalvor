@@ -1,251 +1,115 @@
 # NutriBite Screencast Script
 
-Estimated duration: 12–14 minutes
+About 9–10 minutes
 
 ---
 
-## Part 1 — Introduction (30 seconds)
+## 1. Intro + UI/UX (1.5 min)
 
-> Hi, my name is Wenhao Zhao and this is my final assignment for Mobile Computing — 6G6Z0014. My app is called NutriBite, and the theme is Food and Drink. It's a cross-platform mobile app built with .NET MAUI that lets users browse foods and drinks, check nutrition info, and use the phone's hardware like camera, GPS, accelerometer, and text-to-speech. I'm going to walk through each part of the marking criteria now.
-
----
-
-## Part 2 — UI/UX Design (2 minutes)
-
-> **[Show the app running on the main page]**
+> Hi, I'm Wenhao Zhao. This is NutriBite, my final project for Mobile Computing. The theme is Food and Drink, built with .NET MAUI.
 >
-> Let me start with UI and UX design. I used XAML for all the pages. The app has a bottom tab bar with three tabs — Foods, Hardware, and Settings — which makes navigation simple and intuitive.
+> **[Show main page]**
 >
-> For the visual style, I used a warm colour palette with cream backgrounds, tomato red, baked orange, and basil green. This fits the food and drink theme. I used LinearGradientBrush on the headers and consistent rounded corners across all cards, so the look is unified.
+> Three tabs at the bottom — Foods, Hardware, Settings. The design uses warm food-themed colours — cream, tomato red, basil green — with consistent rounded cards and gradient headers, all defined in XAML with AppThemeBinding for light and dark mode.
 >
-> **[Scroll through the food list]**
+> **[Switch to dark mode in Settings]**
 >
-> The main page uses a SearchBar at the top for searching, a CollectionView for the food cards, and a RefreshView so users can pull down to refresh. Each card shows the food name, calories, description, macros, and category. There's a details button on each card that navigates to a full nutrition page.
->
-> **[Show the detail page]**
->
-> The detail page shows everything about one food item — name, category, calories, protein, carbs, fat, description, and allergy notes.
->
-> I also added a settings page where users can switch themes.
->
-> **[Switch to Settings page]**
->
-> I've got system theme, light theme, and dark theme options. Let me switch to dark mode.
->
-> **[Switch to dark]**
->
-> You can see all the colours change across the app. The gradients and card backgrounds all respond to the theme. This is done using AppThemeBinding in XAML.
->
-> For performance, I kept things simple. The data is fetched once and cached locally. The search filters in memory rather than making network calls every time. I also reuse services — for example, SpeechService is used by both the detail page and the hardware page, so the speech logic isn't duplicated.
+> Everything switches together. The search bar, cards, all respond to the theme. Each card shows the food name, calories, macros, and a Details button.
 
 ---
 
-## Part 3 — Accessibility (1.5 minutes)
+## 2. Accessibility (1 min)
 
-> Now accessibility. This is related to WCAG guidelines — Web Content Accessibility Guidelines. I applied three main principles.
+> For accessibility I followed WCAG principles. Every interactive control has SemanticProperties — Hints on buttons, HeadingLevels on titles. The screen reader announces status changes through SemanticScreenReader.Announce.
 >
-> First, all interactive elements have SemanticProperties. For example, the search bar has a Hint that says "Search the food and drink list". The add button has a Hint. Every button across all pages has one. Screen readers use these hints to tell users what each control does.
+> **[Turn on large text in Settings, switch tabs]**
 >
-> **[Show a few SemanticProperties in code if possible, or mention them while showing pages]**
->
-> I also used HeadingLevel for semantic structure. The page title is Level1, section titles like "Nutrition overview" are Level2, and preview titles are Level3. This gives screen reader users a clear content hierarchy.
->
-> Second, I added SemanticScreenReader.Announce calls in the code-behind. Whenever a status changes — like a photo being captured or a location being found — I call Announce so the screen reader reads it out automatically.
->
-> **[Show Settings page]**
->
-> Third, the large text mode. When I turn this on, all text across every page gets scaled up by about 22 percent. It doesn't just affect the settings page — when I switch to Foods or Hardware, the text stays large. This is because AccessibilityService.ApplyFontScale runs in OnAppearing on every page.
->
-> **[Switch to another page to show large text persists]**
->
-> I reference WCAG in my README as well. I focused on making content perceivable by screen readers, making controls operable with clear hints, and making the interface understandable with consistent navigation and heading levels.
+> Large text mode scales all text by 22% across every page. It persists when switching tabs because each page calls ApplyFontScale in OnAppearing.
 
 ---
 
-## Part 4 — Functionality (2 minutes)
+## 3. Functionality (1.5 min)
 
-> Let me demonstrate the core functionality.
+> **[Search "drink", show filtering, clear search]**
 >
-> **[Back on main page]**
+> Search matches name, category, description, and tags.
 >
-> The main page shows a list of food and drink items. I can search — let me type "drink".
+> **[Open detail page, press Read Summary, then Stop]**
 >
-> **[Type "drink" in search]**
+> Detail page shows all nutrition info. Read Summary uses text-to-speech. Speech stops automatically when leaving the page.
 >
-> It filters to show only the Iced Matcha Latte. The search matches against name, category, description, and tags, all case-insensitive. If I clear it, everything comes back.
+> **[Go to Add page, fill in form, save]**
 >
-> **[Clear search]**
->
-> I can pull down to refresh the list.
->
-> **[Pull down to refresh]**
->
-> Let me open a detail page.
->
-> **[Click Details on a card]**
->
-> Here I can see all the nutrition information. There's a Read Summary button that uses text-to-speech to read the nutrition summary aloud. Let me press it.
->
-> **[Press Read Summary — speech plays]**
->
-> And Stop Reading to stop it.
->
-> **[Press Stop Reading]**
->
-> The Vibrate button triggers both vibration and haptic feedback as a meal reminder.
->
-> **[Press Vibrate — alert pops up]**
->
-> Now the add page. Click the Add button.
->
-> **[Click Add, go to add page]**
->
-> I can fill in name, pick a category, write a description, and enter the nutrition numbers. Let me add a new item.
->
-> **[Fill in the form correctly]**
->
-> Save. It says saved, and I'm back on the main page. The new item appears in the list.
->
-> **[Show new item]**
+> Add page lets you enter name, category, description, and nutrition numbers. Save it and it appears in the list.
 
 ---
 
-## Part 5 — Validation and Error Handling (1.5 minutes)
+## 4. Validation & Error Handling (1.5 min)
 
-> Now I'll show validation and error handling. Let me go back to the add page and try to save with empty fields.
+> **[Leave form empty, press Save]**
 >
-> **[Go to Add page, leave everything blank, press Save]**
+> Red error panel: "Please enter a food or drink name". Also vibrates. Friendly messages, not programmer errors.
 >
-> You see the red validation panel appear — "Please enter a food or drink name." The phone also vibrates so the user feels the error. This is user-friendly messaging — not a programmer error like "NullReferenceException".
+> **[Show category required, then negative calories error]**
 >
-> Let me fill in just the name and leave category empty.
+> All fields validated — required text fields and non-negative numbers for calories, protein, carbs, fat.
 >
-> **[Fill name only, press Save]**
->
-> "Please choose a category."
->
-> **[Select category, leave description empty, press Save]**
->
-> "Please add a short description."
->
-> Now let me put a negative number for calories.
->
-> **[Enter -100 for calories, press Save]**
->
-> "Please enter a valid non-negative number for calories." This checks all four numeric fields — calories, protein, carbs, and fat.
->
-> For error handling in the hardware features, I wrapped every operation in try-catch blocks. Let me show you.
->
-> **[Switch to Hardware page, maybe show code]**
->
-> If the camera isn't supported on the device, it shows a clear message instead of crashing. Same for location — if permission is denied, it tells the user to enable it in settings. The accelerometer also checks IsSupported before starting. Every hardware feature has proper exception handling.
->
-> The data layer also has fallback handling. If the mockapi.io network request fails, the app silently falls back to local data instead of showing an error or crashing.
+> For hardware, every operation is wrapped in try-catch. Camera checks IsCaptureSupported first. Location handles permission denial. Accelerometer checks IsSupported. Network failures fall back to local data silently instead of crashing.
 
 ---
 
-## Part 6 — Mobile Hardware (3 minutes)
+## 5. Mobile Hardware (2.5 min)
 
-> Now the hardware features. I used five different hardware features in this app.
+> Five hardware features in total.
 >
-> **[On Hardware page]**
+> **[Press Photo — take picture]**
 >
-> First, the camera.
+> Camera via MediaPicker. Photo displayed on the page.
 >
-> **[Press Photo button]**
+> **[Press Locate — show coordinates and address]**
 >
-> This opens the device camera. I can take a photo and it appears on the page. The camera uses MediaPicker.CapturePhotoAsync. It handles permission denial gracefully.
+> GPS coordinates plus reverse geocoding for country, city, region. Fallback mapping if geocoding is unavailable.
 >
-> **[After photo is captured]**
+> **[Press Start on Shake to Discover, shake device]**
 >
-> Second, location and geocoding.
+> Accelerometer detects shake by calculating delta across X, Y, Z axes. 1.2g threshold, two-second cooldown. Random food recommended with haptic feedback.
 >
-> **[Press Locate button]**
+> **[Shake again, then Stop]**
 >
-> This gets the GPS coordinates — latitude and longitude — and then uses reverse geocoding to get the country, city, and region. The coordinates and address are both displayed. If geocoding doesn't return results, there's a fallback that maps coordinates to known areas.
+> **[Press Read help, then Stop speech]**
 >
-> Third, the accelerometer. I added a shake-to-discover feature.
->
-> **[Press Start on Shake to Discover]**
->
-> Now the accelerometer is monitoring. When I shake the device, it detects the motion by calculating the acceleration delta across all three axes.
->
-> **[Shake the device or simulate shake in emulator]**
->
-> It picked a random food item and the counter went up to 1. There's a two-second cooldown so one shake doesn't trigger multiple times. Each shake gives haptic feedback and the recommendation changes.
->
-> **[Shake again if possible]**
->
-> I'll press Stop to turn it off.
->
-> **[Press Stop]**
->
-> Fourth, text-to-speech.
->
-> **[Press Read help]**
->
-> It reads the help text aloud. The SpeechService wraps TextToSpeech with a cancellation token, so I can stop it at any time.
->
-> **[Press Stop speech]**
->
-> And when I leave a page that's speaking, it stops automatically — I put Stop in OnDisappearing on every page.
->
-> Fifth, vibration and haptic feedback.
+> Text-to-speech with cancellation support. Auto-stops in OnDisappearing.
 >
 > **[Press Haptic feedback]**
 >
-> This triggers both Vibration.Vibrate and HapticFeedback.Perform. The counter at the bottom increments so you can verify it works even if you can't feel it through the screencast.
->
-> So in total I've used the camera, location with geocoding, accelerometer, text-to-speech, and vibration with haptic feedback — that's five hardware features directly integrated into the app.
+> Vibration and haptic feedback. Counter increments for screencast verification.
 
 ---
 
-## Part 7 — Code Quality (1 minute)
+## 6. Code Quality (1 min)
 
-> Let me briefly show the code structure.
+> **[Show project structure in Solution Explorer]**
 >
-> **[Open Solution Explorer or show files in VS Code]**
+> Models, Services, Pages — separated clearly. FoodCatalogService is reused by main page, detail page, and the shake feature. SpeechService shared between detail and hardware pages. Consistent naming — all handlers prefixed with On.
 >
-> I separated the project into Models, Services, and Pages. FoodItem is the data model with JSON serialization attributes for the API. The Services folder has FoodCatalogService for data, SpeechService for text-to-speech, and AccessibilityService for font scaling. Each page has its XAML file for UI and a code-behind file for logic.
+> **[Show AndroidManifest]**
 >
-> **[Open FoodCatalogService.cs]**
->
-> FoodCatalogService is reusable — both the main page and the hardware page call SearchAsync to get food data. The shake feature in HardwarePage also uses the same service to pick a random item. This is code reuse.
->
-> I also have consistent naming — all page event handlers follow the On prefix pattern like OnSaveClicked, OnTakePhotoClicked. The code is organised logically with related methods grouped together.
->
-> **[Open AndroidManifest.xml]**
->
-> Here are the Android permissions — camera, coarse and fine location, and vibrate. I only request the permissions actually needed by the app.
+> Four permissions only — camera, location coarse and fine, vibrate. Nothing unnecessary.
 
 ---
 
-## Part 8 — Deployment (30 seconds)
+## 7. Deployment + GitHub (45 sec)
 
-> For deployment, let me show the app running on Windows first — that's what you're seeing now.
+> **[Show Windows app running]**
 >
-> **[Show the Windows build output or the running app]**
+> Compiles for both Android and Windows from one codebase.
 >
-> And I can also build and run it on Android.
+> **[Show GitHub commit history]**
 >
-> **[If possible, switch to Android emulator or show the build command output]**
->
-> The app compiles for both platforms from the same codebase using .NET MAUI. I used Directory.Build.props to redirect the build output to avoid path issues on Windows. The Android manifest is configured with all the required permissions.
+> Regular commits throughout development. README has app overview, hardware table, project structure, build instructions, and development plan.
 
 ---
 
-## Part 9 — GitHub Usage (30 seconds)
+## 8. Wrap-up (15 sec)
 
-> Finally, GitHub. Here's my commit history.
->
-> **[Open GitHub repository page, show commit history]**
->
-> I committed regularly throughout development, not just at the end. I started with the initial project setup, then added the food list, hardware features, and gradually built up the app. Each commit has a descriptive message about what was changed.
->
-> My README includes the app overview, author name, all the hardware features used, project structure, build instructions, and a development plan showing what's been completed and what's in progress.
-
----
-
-## Part 10 — Conclusion (15 seconds)
-
-> That covers all seven assessment criteria. NutriBite is a cross-platform food and drink app with XAML-based UI, five hardware features, WCAG-informed accessibility, form validation, error handling, and clean code structure. Thank you for watching.
+> That covers all seven criteria. NutriBite — cross-platform food and drink app with five hardware features, WCAG-informed accessibility, form validation, and clean code structure. Thank you.
