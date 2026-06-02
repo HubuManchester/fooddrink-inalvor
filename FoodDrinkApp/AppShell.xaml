@@ -19,14 +19,20 @@
         <ShellContent
             Title="Foods"
             ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage" />
+            Route="MainPage"
+            SemanticProperties.Description="Browse and search foods and drinks"
+            SemanticProperties.Hint="Food list tab" />
         <ShellContent
             Title="Hardware"
             ContentTemplate="{DataTemplate local:HardwarePage}"
-            Route="HardwarePage" />
+            Route="HardwarePage"
+            SemanticProperties.Description="Demonstrate camera, location, accelerometer, and other hardware"
+            SemanticProperties.Hint="Hardware demo tab" />
         <ShellContent
             Title="Settings"
             ContentTemplate="{DataTemplate local:SettingsPage}"
-            Route="SettingsPage" />
+            Route="SettingsPage"
+            SemanticProperties.Description="Change theme, large text, and accessibility settings"
+            SemanticProperties.Hint="Settings tab" />
     </TabBar>
 </Shell>

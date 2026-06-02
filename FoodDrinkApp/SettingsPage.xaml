@@ -40,7 +40,8 @@
                         <Label Text="Theme mode"
                                FontSize="17"
                                FontAttributes="Bold"
-                               TextColor="{AppThemeBinding Light=#D9472B, Dark=#FF9C7B}" />
+                               TextColor="{AppThemeBinding Light=#D9472B, Dark=#FF9C7B}"
+                               SemanticProperties.HeadingLevel="Level2" />
                         <Picker x:Name="ThemePicker"
                                 Grid.Row="1"
                                 Title="Choose app theme"
@@ -61,7 +62,8 @@
                             <Label Text="Large text mode"
                                    FontSize="17"
                                    FontAttributes="Bold"
-                                   TextColor="{AppThemeBinding Light=#2F7A4F, Dark=#8CE6A1}" />
+                                   TextColor="{AppThemeBinding Light=#2F7A4F, Dark=#8CE6A1}"
+                                   SemanticProperties.HeadingLevel="Level2" />
                             <Label Text="Increase text size for accessibility demonstration."
                                    FontSize="13"
                                    TextColor="{AppThemeBinding Light=#8B6D55, Dark=#D8C4AC}" />
@@ -85,11 +87,13 @@
                            Text="Large text preview"
                            FontSize="20"
                            FontAttributes="Bold"
-                           TextColor="{AppThemeBinding Light=#A95517, Dark=#FFD18E}" />
+                           TextColor="{AppThemeBinding Light=#A95517, Dark=#FFD18E}"
+                           SemanticProperties.HeadingLevel="Level3" />
                     <Label x:Name="LargeTextPreviewBody"
                            Text="When enabled, this text and the rest of the page become visibly larger."
                            FontSize="15"
-                           TextColor="{AppThemeBinding Light=#6E5A47, Dark=#D8C4AC}" />
+                           TextColor="{AppThemeBinding Light=#6E5A47, Dark=#D8C4AC}"
+                           SemanticProperties.Description="Preview of large text effect" />
                 </VerticalStackLayout>
             </Border>
 

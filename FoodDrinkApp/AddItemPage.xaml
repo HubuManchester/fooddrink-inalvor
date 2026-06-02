@@ -36,7 +36,7 @@
                     <RoundRectangle CornerRadius="8" />
                 </Border.StrokeShape>
                 <VerticalStackLayout Spacing="14">
-                    <Label Text="Basic information" FontSize="16" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#D9472B, Dark=#FF9C7B}" />
+                    <Label Text="Basic information" FontSize="16" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#D9472B, Dark=#FF9C7B}" SemanticProperties.HeadingLevel="Level2" />
                     <Entry x:Name="NameEntry"
                            Placeholder="Name"
                            SemanticProperties.Hint="Required food or drink name" />
@@ -67,7 +67,7 @@
                     <RoundRectangle CornerRadius="8" />
                 </Border.StrokeShape>
                 <VerticalStackLayout Spacing="14">
-                    <Label Text="Nutrition data" FontSize="16" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#2F7A4F, Dark=#8CE6A1}" />
+                    <Label Text="Nutrition data" FontSize="16" FontAttributes="Bold" TextColor="{AppThemeBinding Light=#2F7A4F, Dark=#8CE6A1}" SemanticProperties.HeadingLevel="Level2" />
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
                         <Entry x:Name="CaloriesEntry"
                                Placeholder="Calories"
@@ -76,16 +76,19 @@
                         <Entry x:Name="ProteinEntry"
                                Grid.Column="1"
                                Placeholder="Protein g"
-                               Keyboard="Numeric" />
+                               Keyboard="Numeric"
+                               SemanticProperties.Hint="Protein in grams as a number" />
                     </Grid>
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
                         <Entry x:Name="CarbsEntry"
                                Placeholder="Carbs g"
-                               Keyboard="Numeric" />
+                               Keyboard="Numeric"
+                               SemanticProperties.Hint="Carbohydrates in grams as a number" />
                         <Entry x:Name="FatEntry"
                                Grid.Column="1"
                                Placeholder="Fat g"
-                               Keyboard="Numeric" />
+                               Keyboard="Numeric"
+                               SemanticProperties.Hint="Fat in grams as a number" />
                     </Grid>
                     <Entry x:Name="AllergyEntry"
                            Placeholder="Allergy note or dietary restriction"

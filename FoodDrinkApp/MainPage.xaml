@@ -37,25 +37,26 @@
                     <Label Grid.Row="1"
                            Text="Track nutrition, flavour, photos, and meal context in one place."
                            FontSize="15"
-                           TextColor="#FFF5E8" />
+                           TextColor="#FFF5E8"
+                           SemanticProperties.Description="App tagline" />
                     <Grid Grid.Row="2" ColumnDefinitions="*,*,*" ColumnSpacing="8" Margin="0,3,0,0">
                         <Border BackgroundColor="#33FFFFFF" StrokeThickness="0" Padding="10,7">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="8" />
                             </Border.StrokeShape>
-                            <Label Text="Nutrition" TextColor="#FFFFFF" FontSize="12" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Label Text="Nutrition" TextColor="#FFFFFF" FontSize="12" FontAttributes="Bold" HorizontalTextAlignment="Center" SemanticProperties.Description="Nutrition tracking feature" />
                         </Border>
                         <Border Grid.Column="1" BackgroundColor="#33FFFFFF" StrokeThickness="0" Padding="10,7">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="8" />
                             </Border.StrokeShape>
-                            <Label Text="Photos" TextColor="#FFFFFF" FontSize="12" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Label Text="Photos" TextColor="#FFFFFF" FontSize="12" FontAttributes="Bold" HorizontalTextAlignment="Center" SemanticProperties.Description="Photo capture feature" />
                         </Border>
                         <Border Grid.Column="2" BackgroundColor="#33FFFFFF" StrokeThickness="0" Padding="10,7">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="8" />
                             </Border.StrokeShape>
-                            <Label Text="Voice" TextColor="#FFFFFF" FontSize="12" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Label Text="Voice" TextColor="#FFFFFF" FontSize="12" FontAttributes="Bold" HorizontalTextAlignment="Center" SemanticProperties.Description="Voice and speech feature" />
                         </Border>
                     </Grid>
                     <Grid Grid.Row="3" ColumnDefinitions="*,Auto" ColumnSpacing="10" Margin="0,6,0,0">
@@ -123,24 +124,28 @@
                                         <Label Text="{Binding CaloriesLabel}"
                                                FontSize="13"
                                                FontAttributes="Bold"
-                                               TextColor="{AppThemeBinding Light=#A95517, Dark=#FFD18E}" />
+                                               TextColor="{AppThemeBinding Light=#A95517, Dark=#FFD18E}"
+                                               SemanticProperties.Description="Calorie count" />
                                     </Border>
                                     <Label Grid.Row="1"
                                            Grid.ColumnSpan="2"
                                            Text="{Binding Description}"
                                            FontSize="14"
                                            TextColor="{AppThemeBinding Light=#6E5A47, Dark=#D8C4AC}"
-                                           LineBreakMode="TailTruncation" />
+                                           LineBreakMode="TailTruncation"
+                                           SemanticProperties.Description="Food description" />
                                     <Label Grid.Row="2"
                                            Grid.ColumnSpan="2"
                                            Text="{Binding MacroSummary}"
                                            FontSize="13"
-                                           TextColor="{AppThemeBinding Light=#2F7A4F, Dark=#8CE6A1}" />
+                                           TextColor="{AppThemeBinding Light=#2F7A4F, Dark=#8CE6A1}"
+                                           SemanticProperties.Description="Macronutrient summary" />
                                     <Grid Grid.Row="3" Grid.ColumnSpan="2" ColumnDefinitions="*,Auto" Margin="0,4,0,0">
                                         <Label Text="{Binding Category}"
                                                FontSize="13"
                                                FontAttributes="Bold"
-                                               TextColor="{AppThemeBinding Light=#D9472B, Dark=#FF9C7B}" />
+                                               TextColor="{AppThemeBinding Light=#D9472B, Dark=#FF9C7B}"
+                                               SemanticProperties.Description="Food category" />
                                         <Button Grid.Column="1"
                                                 Text="Details"
                                                 Padding="14,8"
