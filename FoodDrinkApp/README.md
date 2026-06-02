@@ -1,58 +1,58 @@
-# 食光营养助手
+# NutriBite
 
-食光营养助手是一个基于 .NET MAUI 的“食品与饮品”课程项目应用。应用可以记录食品和饮品，展示营养摘要，验证用户输入，并演示移动设备硬件功能。
+NutriBite is a .NET MAUI "Food and Drink" coursework app. It lets users record foods and drinks, view nutrition summaries, validate user input, and demonstrate mobile device hardware features.
 
-## 主要功能
+## Key Features
 
-- 食品和饮品列表，支持搜索和详情页。
-- 添加记录表单，检查必填项和营养数值。
-- 使用相机拍摄食品照片并预览。
-- 使用定位记录用餐或购买地点。
-- 使用文字转语音朗读营养摘要和帮助内容。
-- 使用震动与触觉反馈提供操作提醒。
-- 支持主题切换和大字体模式。
-- 包含语义标签、屏幕阅读器播报和清晰的验证提示。
+- Food and drink list with search and detail pages.
+- Add-item form with required-field and numeric validation.
+- Capture food photos with the camera and preview them.
+- Use location to record where a meal was consumed or purchased.
+- Text-to-speech for reading nutrition summaries and help content aloud.
+- Vibration and haptic feedback for user alerts.
+- Theme switching (light / dark / system) and large-text mode.
+- Semantic labels, screen reader announcements, and clear validation messages.
 
-## 评分点覆盖
+## Assessment Criteria Coverage
 
-- UI/UX 与无障碍：XAML 页面、底部导航、一致的视觉风格、深色模式、语义描述和屏幕阅读器播报。
-- 移动硬件：相机、定位、文字转语音、震动和触觉反馈。
-- 功能完整性：列表、搜索、添加、详情、设置和硬件演示流程。
-- 验证与错误处理：必填项检查、数字检查、权限错误和硬件不可用提示。
-- 代码质量：模型和服务分离、命名清晰、可复用的目录服务，以及范围清晰的页面代码。
-- 部署：面向 Android 和 Windows 的 .NET MAUI 跨平台应用。
-- GitHub 使用：建议持续提交，例如 `添加食品列表`、`实现硬件页面`、`添加输入验证`。
+- UI/UX & Accessibility: XAML pages, bottom tab navigation, consistent visual style, dark mode, semantic descriptions, and screen reader announcements.
+- Mobile Hardware: Camera, location, text-to-speech, vibration, haptic feedback, and accelerometer.
+- Functionality: List, search, add, detail, settings, and hardware demo flows.
+- Validation & Error Handling: Required-field checks, numeric checks, permission errors, and hardware-unavailable alerts.
+- Code Quality: Models and services separated, clear naming, reusable catalog service, and well-scoped page code-behind.
+- Deployment: .NET MAUI cross-platform app targeting Android and Windows.
+- GitHub Usage: Regular commits with descriptive messages — e.g. "add food list page", "implement hardware page", "add input validation".
 
-## 运行方式
+## How to Run
 
-使用安装了 .NET MAUI 工作负载的 Visual Studio 2022 打开 `FoodDrinkApp.csproj` 或 `FoodDrinkApp.sln`。
+Open `FoodDrinkApp.csproj` or `FoodDrinkApp.sln` in Visual Studio 2022 with the .NET MAUI workload installed.
 
-推荐演示目标：
+Recommended demo targets:
 
-- Android 模拟器
+- Android emulator
 - Windows Machine
 
-Windows 构建命令：
+Windows build:
 
 ```powershell
 dotnet build .\FoodDrinkApp.csproj -f net9.0-windows10.0.19041.0
 ```
 
-Android 构建命令：
+Android build:
 
 ```powershell
 dotnet build .\FoodDrinkApp.csproj -f net9.0-android
 ```
 
-本项目通过 `Directory.Build.props` 将构建输出放到 `C:\MauiBuild\NutriTrack\`，用于规避 Android 打包工具在中文路径下的 `assets` 路径问题。
+The project uses `Directory.Build.props` to redirect build output to `C:\MauiBuild\NutriTrack\`, avoiding Android packager issues with non-ASCII file paths.
 
-## 录屏演示清单
+## Screencast Demo Checklist
 
-- 说明“食品与饮品”主题和“食光营养助手”的应用概念。
-- 展示搜索、详情页和添加新记录。
-- 演示不填必填项、输入非法数字时的验证提示。
-- 演示相机、定位、文字转语音、震动和触觉反馈。
-- 展示深色模式和大字体模式。
-- 展示关键代码文件：模型、服务、页面和 Android 权限配置。
-- 展示 Android 和 Windows 部署效果。
-- 展示 GitHub 提交历史和 README。
+- Introduce the "Food and Drink" theme and the NutriBite app concept.
+- Show search, detail page, and adding a new record.
+- Demonstrate validation when leaving required fields blank or entering invalid numbers.
+- Demonstrate camera, location, text-to-speech, vibration, haptic feedback, and accelerometer.
+- Show dark mode and large-text mode.
+- Walk through key code files: models, services, pages, and Android permission configuration.
+- Show Android and Windows deployment results.
+- Show GitHub commit history and README.

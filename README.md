@@ -89,7 +89,7 @@ The app prioritises data from a mockapi.io REST API. If the API is not configure
 
 To configure the API endpoint, edit `FoodDrinkApp/Services/MockApiConfig.cs`.
 
-See `mockapi配置说明.md` for step-by-step setup instructions.
+See `MOCKAPI_SETUP.md` for step-by-step setup instructions.
 
 ---
 
