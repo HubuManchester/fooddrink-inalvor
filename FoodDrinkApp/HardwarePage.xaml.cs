@@ -5,6 +5,14 @@ namespace FoodDrinkApp;
 public partial class HardwarePage : ContentPage
 {
     private int feedbackTestCount;
+    private int shakeCount;
+    private bool isShakeDetecting;
+    private double lastAccelX;
+    private double lastAccelY;
+    private double lastAccelZ;
+    private DateTime lastShakeTime = DateTime.MinValue;
+    private static readonly TimeSpan ShakeCooldown = TimeSpan.FromSeconds(2);
+    private const double ShakeThreshold = 1.2;
 
     public HardwarePage()
     {
@@ -20,6 +28,7 @@ public partial class HardwarePage : ContentPage
     protected override void OnDisappearing()
     {
         SpeechService.Stop();
+        StopShakeDetection();
         base.OnDisappearing();
     }
 
@@ -188,6 +197,118 @@ public partial class HardwarePage : ContentPage
         {
             SetStatus($"Feedback error: {ex.Message}");
         }
+    }
+
+    private void OnShakeToggleClicked(object? sender, EventArgs e)
+    {
+        try
+        {
+            if (isShakeDetecting)
+            {
+                StopShakeDetection();
+                return;
+            }
+
+            StartShakeDetection();
+        }
+        catch (Exception ex)
+        {
+            SetStatus($"Accelerometer error: {ex.Message}");
+        }
+    }
+
+    private void StartShakeDetection()
+    {
+        if (!Accelerometer.Default.IsSupported)
+        {
+            SetStatus("This device does not have an accelerometer sensor.");
+            return;
+        }
+
+        if (!Accelerometer.Default.IsMonitoring)
+        {
+            Accelerometer.Default.ReadingChanged += OnAccelerometerReadingChanged;
+            Accelerometer.Default.Start(SensorSpeed.Game);
+        }
+
+        isShakeDetecting = true;
+        ShakeToggleButton.Text = "Stop";
+        ShakeToggleButton.BackgroundColor = Color.FromArgb("#2F7A4F");
+        ShakeRecommendationLabel.Text = "Shake detection is active. Shake your device!";
+        ShakeSubtitleLabel.Text = "The accelerometer is monitoring motion changes.";
+        SetStatus("Accelerometer shake detection started.");
+    }
+
+    private void StopShakeDetection()
+    {
+        if (Accelerometer.Default.IsMonitoring)
+        {
+            Accelerometer.Default.ReadingChanged -= OnAccelerometerReadingChanged;
+            Accelerometer.Default.Stop();
+        }
+
+        isShakeDetecting = false;
+        ShakeToggleButton.Text = "Start";
+        ShakeToggleButton.BackgroundColor = Color.FromArgb("#D9472B");
+        ShakeRecommendationLabel.Text = "Shake detection stopped.";
+        ShakeSubtitleLabel.Text = $"Detected {shakeCount} shake(s) during this session.";
+        SetStatus("Accelerometer shake detection stopped.");
+    }
+
+    private void OnAccelerometerReadingChanged(object? sender, AccelerometerChangedEventArgs e)
+    {
+        var reading = e.Reading;
+        var now = DateTime.UtcNow;
+
+        // Calculate change in acceleration magnitude across all three axes
+        var deltaX = reading.Acceleration.X - lastAccelX;
+        var deltaY = reading.Acceleration.Y - lastAccelY;
+        var deltaZ = reading.Acceleration.Z - lastAccelZ;
+        var deltaMagnitude = Math.Sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+
+        lastAccelX = reading.Acceleration.X;
+        lastAccelY = reading.Acceleration.Y;
+        lastAccelZ = reading.Acceleration.Z;
+
+        // Only register a shake if the delta exceeds the threshold
+        // and the cooldown period has elapsed
+        if (deltaMagnitude < ShakeThreshold || now - lastShakeTime < ShakeCooldown)
+        {
+            return;
+        }
+
+        lastShakeTime = now;
+        shakeCount++;
+
+        // Update UI on the main thread
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            try
+            {
+                HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
+                ShakeCountLabel.Text = $"Shakes detected: {shakeCount}";
+
+                var allItems = await FoodCatalogService.SearchAsync(null);
+                if (allItems.Count == 0)
+                {
+                    ShakeRecommendationLabel.Text = "No food items available. Add some records first!";
+                    ShakeSubtitleLabel.Text = "";
+                    return;
+                }
+
+                var pick = allItems[Random.Shared.Next(allItems.Count)];
+                ShakeRecommendationLabel.Text = $"🥄 {pick.Name}";
+                ShakeSubtitleLabel.Text = $"{pick.Category}  ·  {pick.CaloriesLabel}  ·  {pick.MacroSummary}";
+
+                var announcement = $"Shake detected. Recommended: {pick.AccessibleSummary}";
+                SemanticScreenReader.Announce(announcement);
+                SetStatus($"Shake #{shakeCount}: recommended {pick.Name}.");
+            }
+            catch (Exception ex)
+            {
+                SetStatus($"Shake recommendation error: {ex.Message}");
+            }
+        });
     }
 
     private void SetStatus(string message)

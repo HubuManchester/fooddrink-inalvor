@@ -22,7 +22,7 @@
                            FontAttributes="Bold"
                            TextColor="{AppThemeBinding Light=#3A2518, Dark=#FFF2DF}"
                            SemanticProperties.HeadingLevel="Level1" />
-                    <Label Text="Demonstrate camera, location, speech, vibration, and haptic feedback."
+                    <Label Text="Demonstrate camera, location, accelerometer, speech, vibration, and haptic feedback."
                            FontSize="15"
                            TextColor="{AppThemeBinding Light=#8B6D55, Dark=#D8C4AC}" />
                 </VerticalStackLayout>
@@ -92,6 +92,58 @@
                            FontSize="13"
                            TextColor="{AppThemeBinding Light=#9A7B63, Dark=#BFA58E}" />
                 </Grid>
+            </Border>
+
+            <!-- Accelerometer: shake to discover a random food/drink -->
+            <Border StrokeThickness="1"
+                    Stroke="{AppThemeBinding Light=#F0D6B8, Dark=#3E3023}"
+                    BackgroundColor="{AppThemeBinding Light=#FFFFFA, Dark=#1A1712}"
+                    Padding="16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="8" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                        <VerticalStackLayout Spacing="3">
+                            <Label Text="Shake to Discover"
+                                   FontSize="17"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light=#D9472B, Dark=#FF9C7B}" />
+                            <Label Text="Shake the device to get a random meal or drink recommendation. Uses the accelerometer sensor."
+                                   FontSize="13"
+                                   TextColor="{AppThemeBinding Light=#8B6D55, Dark=#D8C4AC}" />
+                        </VerticalStackLayout>
+                        <Button Grid.Column="1"
+                                x:Name="ShakeToggleButton"
+                                Text="Start"
+                                BackgroundColor="#D9472B"
+                                TextColor="#FFFFFF"
+                                Clicked="OnShakeToggleClicked"
+                                SemanticProperties.Hint="Start or stop accelerometer shake detection" />
+                    </Grid>
+                    <Border StrokeThickness="0"
+                            BackgroundColor="{AppThemeBinding Light=#FFF0C9, Dark=#312316}"
+                            Padding="14">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="6">
+                            <Label x:Name="ShakeRecommendationLabel"
+                                   Text="Enable shake detection to discover something new."
+                                   FontSize="15"
+                                   TextColor="{AppThemeBinding Light=#3A2518, Dark=#FFF2DF}" />
+                            <Label x:Name="ShakeSubtitleLabel"
+                                   Text=""
+                                   FontSize="13"
+                                   TextColor="{AppThemeBinding Light=#9A7B63, Dark=#BFA58E}" />
+                            <Label x:Name="ShakeCountLabel"
+                                   Text="Shakes detected: 0"
+                                   FontSize="12"
+                                   FontAttributes="Italic"
+                                   TextColor="{AppThemeBinding Light=#B8957A, Dark=#8B7A65}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
             </Border>
 
             <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
